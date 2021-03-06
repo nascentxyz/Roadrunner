@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import { Head, Header, QueryList, Roadrunner } from "../components";
 import {
   container,
@@ -8,7 +9,6 @@ import {
   rightDiv,
   gridContainer,
 } from "../styles";
-import styled from "styled-components";
 
 const Container = styled.div`
   background-color: ${(props) => props.theme.bg.primary};
@@ -36,8 +36,6 @@ const Home = () => {
           </div>
         </div>
       </main>
-
-      {/* <Footer /> */}
     </Container>
   );
 };
