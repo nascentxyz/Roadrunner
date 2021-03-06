@@ -31,7 +31,7 @@ const handleMaker = async () => {
     }
   );
 
-  return { data: data.data.markets };
+  return data.data;
 };
 
 export default handleMaker;

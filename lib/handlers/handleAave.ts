@@ -31,7 +31,7 @@ const handleAave = async () => {
     }
   );
 
-  return { data: data.data.markets };
+  return data.data;
 };
 
 export default handleAave;

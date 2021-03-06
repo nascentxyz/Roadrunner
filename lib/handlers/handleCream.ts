@@ -31,7 +31,7 @@ const handleCream = async () => {
     }
   );
 
-  return { data: data.data.markets };
+  return data.data;
 };
 
 export default handleCream;

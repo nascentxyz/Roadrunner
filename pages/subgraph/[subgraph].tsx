@@ -13,6 +13,8 @@ import {
   rightDiv,
   gridContainer,
   searchBar,
+  subgraphCard,
+  code,
 } from "../../styles";
 import { fetcher } from "../../lib";
 import { useState } from "react";
@@ -22,11 +24,23 @@ const Container = styled.div`
   color: ${(props) => props.theme.text.primary};
 `;
 
-const Subgraph = () => {
+const BreakP = styled.p`
+  word-break: break-all;
+`;
+
+const Subgraph = (req) => {
   const [filter, setFilter] = useState("");
   const router = useRouter();
   const { subgraph }: any = router.query;
   const { data, error } = useSWR(`/api/graph/${subgraph}`, fetcher);
+  const hostname =
+    typeof window !== "undefined" && window.location.hostname
+      ? window.location.hostname
+      : "";
+  const origin =
+    typeof window !== "undefined" && window.location.origin
+      ? window.location.origin
+      : "";
 
   return (
     <Container className={container}>
@@ -36,8 +50,6 @@ const Subgraph = () => {
       <main className={main}>
         {error ? (
           <h1 className={title}>Failed to fetch subgraph!</h1>
-        ) : !data ? (
-          <h1 className={title}>Loading...</h1>
         ) : (
           <div className={gridContainer}>
             <div className={leftDiv}>
@@ -47,11 +59,20 @@ const Subgraph = () => {
                 </div>
               </a>
               <h1 className={title}>
-                {subgraph.substring(0, 1).toUpperCase() + subgraph.substring(1)}
+                {subgraph
+                  ? subgraph.substring(0, 1).toUpperCase() +
+                    subgraph.substring(1)
+                  : ""}
               </h1>
               <p className={description}>
-                Fetched {subgraph} data from The Graph.
+                Fetched{" "}
+                {subgraph
+                  ? subgraph.substring(0, 1).toUpperCase() +
+                    subgraph.substring(1)
+                  : ""}{" "}
+                data from <a href={"https://thegraph.com/"}>The Graph</a>.
               </p>
+              <div className={code}>{`${origin}/api/graph/${subgraph}`}</div>
             </div>
             <div className={rightDiv}>
               <div className={searchBar}>
@@ -76,20 +97,31 @@ const Subgraph = () => {
                   }}
                 />
               </div>
-              {data.data.markets
-                .filter((market) => market.name.toLowerCase().includes(filter))
-                .map((market) => (
-                  <>
-                    <h3>{market.name}</h3>
-                    <p>Borrow rate: {market.borrowRate}</p>
-                    <p>Supply rate: {market.supplyRate}</p>
-                    <p>Collateral rate: {market.collateralFactor}</p>
-                    <p>Reserve Factor: {market.reserveFactor}</p>
-                    <p>Total Borrow: {market.totalBorrow}</p>
-                    <p>Total Suppy: {market.totalSupply}</p>
-                    <p>id: {market.id}</p>
-                  </>
-                ))}
+              {!data ? (
+                <h1 className={title}>Loading...</h1>
+              ) : (
+                data.data.markets
+                  .filter((market) =>
+                    market.name.toLowerCase().includes(filter)
+                  )
+                  .map((market) => (
+                    <div
+                      key={Object.entries(market).join()}
+                      className={subgraphCard}
+                    >
+                      <h3>{market.name}</h3>
+                      <BreakP>Borrow rate: {market.borrowRate}</BreakP>
+                      <BreakP>Supply rate: {market.supplyRate}</BreakP>
+                      <BreakP>
+                        Collateral rate: {market.collateralFactor}
+                      </BreakP>
+                      <BreakP>Reserve Factor: {market.reserveFactor}</BreakP>
+                      <BreakP>Total Borrow: {market.totalBorrow}</BreakP>
+                      <BreakP>Total Suppy: {market.totalSupply}</BreakP>
+                      <BreakP>id: {market.id}</BreakP>
+                    </div>
+                  ))
+              )}
             </div>
           </div>
         )}
