@@ -72,7 +72,10 @@ const Subgraph = (req) => {
                   : ""}{" "}
                 data from <a href={"https://thegraph.com/"}>The Graph</a>.
               </p>
-              <div className={code}>{`${origin}/api/graph/${subgraph}`}</div>
+              <a
+                href={`${origin}/api/graph/${subgraph}`}
+                className={code}
+              >{`${origin}/api/graph/${subgraph}`}</a>
             </div>
             <div className={rightDiv}>
               <div className={searchBar}>

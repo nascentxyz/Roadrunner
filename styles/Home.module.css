@@ -105,12 +105,20 @@
 }
 
 .code {
-  /* background: #cccccc; */
   border: 1px solid;
   border-radius: 10px;
   border-color: currentColor;
+  word-break: break-all;
   padding: 0.75rem;
   font-size: 1.1rem;
   font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
     Bitstream Vera Sans Mono, Courier New, monospace;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.code:hover,
+.code:focus,
+.code:active {
+  color: #0070f3;
+  border-color: #0070f3;
 }
