@@ -1,5 +1,8 @@
 # Roadrunner
 
+![Build](https://github.com/nascentxyz/Roadrunner/workflows/Build/badge.svg)
+![Lint](https://github.com/nascentxyz/Roadrunner/workflows/Lint/badge.svg)
+
 A rate analysis library built as a serverless Next.js application to easily query the Graph.
 
 ## Routes
