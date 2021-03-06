@@ -1,9 +1,9 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
 
-const Cream = (req: NextApiRequest, res: NextApiResponse) => {
-  axios
-    .post("https://api.thegraph.com/subgraphs/name/graphprotocol/compound-v2", {
+const handleAave = async () => {
+  const data = await axios.post(
+    "https://api.thegraph.com/subgraphs/name/graphprotocol/compound-v2",
+    {
       query: `
             {
                 markets(first: 100) {
@@ -28,13 +28,10 @@ const Cream = (req: NextApiRequest, res: NextApiResponse) => {
                 }
             }
         `,
-    })
-    .then((result) => {
-      res.status(200).json(result.data);
-    })
-    .catch((error) => {
-      res.status(500).json({ error: error });
-    });
+    }
+  );
+
+  return { data: data.data.markets };
 };
 
-export default Cream;
+export default handleAave;
