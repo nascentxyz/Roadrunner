@@ -1,30 +1,48 @@
-import Head from 'next/head'
-import { Footer, QueryList } from '../components'
-import { container, main, title, description} from '../styles'
+import { Head, Header, QueryList, Roadrunner } from "../components";
+import {
+  container,
+  main,
+  title,
+  description,
+  leftDiv,
+  rightDiv,
+  gridContainer,
+} from "../styles";
+import styled from "styled-components";
+import useDarkMode from "use-dark-mode";
+
+const Container = styled.div`
+  background-color: ${(props) => props.theme.bg.primary};
+  color: ${(props) => props.theme.text.primary};
+`;
 
 const Home = () => {
-    return (
-        <div className={container}>
-            <Head>
-                <title>Roadrunner</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
+  const darkMode = useDarkMode();
 
-            <main className={main}>
-                <h1 className={title}>
-                    Roadrunner
-                </h1>
+  return (
+    <Container className={container}>
+      <Head />
+      <Header />
 
-                <p className={description}>
-                    A rate analysis library built as a serverless Next.js application to easily query the Graph.
-                </p>
+      <main className={main}>
+        <div className={gridContainer}>
+          <div className={leftDiv}>
+            <div style={{ margin: "auto" }}>
+              <Roadrunner color={"currentColor"} alt="Roadrunner Logo" />
+            </div>
+            <h1 className={title}>Roadrunner</h1>
 
-                <QueryList />
-            </main>
-
-            <Footer />
+            <p className={description}>Simple interface to query The Graph.</p>
+          </div>
+          <div className={rightDiv}>
+            <QueryList />
+          </div>
         </div>
-    )
-}
+      </main>
 
-export default Home
+      {/* <Footer /> */}
+    </Container>
+  );
+};
+
+export default Home;
