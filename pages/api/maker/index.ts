@@ -1,9 +1,10 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
 
 const Maker = (req: NextApiRequest, res: NextApiResponse) => {
-    axios.post('https://api.thegraph.com/subgraphs/name/graphprotocol/compound-v2', {
-        query: `
+  axios
+    .post("https://api.thegraph.com/subgraphs/name/graphprotocol/compound-v2", {
+      query: `
             {
                 markets(first: 100) {
                     borrowRate
@@ -26,14 +27,14 @@ const Maker = (req: NextApiRequest, res: NextApiResponse) => {
                     underlyingPriceUSD
                 }
             }
-        `
-        })
-        .then((result) => {
-            res.status(200).json(result.data)
-        })
-        .catch((error) => {
-            res.status(500).json({ error: error })
-        })
-}
+        `,
+    })
+    .then((result) => {
+      res.status(200).json(result.data);
+    })
+    .catch((error) => {
+      res.status(500).json({ error: error });
+    });
+};
 
 export default Maker;

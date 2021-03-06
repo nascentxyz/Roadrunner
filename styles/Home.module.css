@@ -1,53 +1,101 @@
 .container {
-    min-height: 100vh;
-    padding: 0 0.5rem;
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.leftDiv {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 10px;
+  gap: 10px;
+  position: sticky;
+  top: 10rem;
+  height: -moz-fit-content;
+  height: fit-content;
+  justify-content: center;
+  top: 16rem;
+}
+
+.rightDiv {
+  width: -webkit-fill-available;
+  margin: -16px;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding-top: 3rem;
+  align-items: flex-start;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: 460px 1fr;
+  grid-gap: 48px;
+  gap: 48px;
+  position: relative;
+  box-sizing: border-box;
+  max-width: 1200px;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .leftDiv {
+    position: relative;
+    top: 0;
+    min-height: calc(100vh - 100px);
+  }
+  .gridContainer {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  }
 }
 
 .main {
-    padding: 5rem 0;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  flex: 1 1;
+  flex-direction: column;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .title a {
-    color: #0070f3;
-    text-decoration: none;
+  color: #0070f3;
+  text-decoration: none;
 }
 
 .title a:hover,
 .title a:focus,
 .title a:active {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .title {
-    margin: 0;
-    line-height: 1.15;
-    font-size: 4rem;
+  margin: 0;
+  line-height: 1.15;
+  font-size: 4rem;
 }
 
 .title,
 .description {
-    text-align: center;
+  text-align: center;
 }
 
 .description {
-    line-height: 1.5;
-    font-size: 1.5rem;
+  line-height: 1.5;
+  font-size: 1.5rem;
 }
 
 .code {
-    background: #fafafa;
-    border-radius: 5px;
-    padding: 0.75rem;
-    font-size: 1.1rem;
-    font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-        DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+  background: #fafafa;
+  border-radius: 5px;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace;
 }
