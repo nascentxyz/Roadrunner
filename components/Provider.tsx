@@ -5,12 +5,12 @@ import { lightTheme, darkTheme } from "../styles/Theme";
 import { ThemeProvider } from "styled-components";
 
 const Provider = ({ children }) => {
-  let [theme, setTheme] = useState(darkTheme);
+  let theme = darkTheme;
   const { value } = useDarkMode(false, {
     storageKey: "darkModeEnabled",
-    onChange: (val) => setTheme(val ? darkTheme : lightTheme),
+    onChange: (val) => (theme = val ? darkTheme : lightTheme),
   });
-
+  theme = value ? darkTheme : lightTheme;
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
 
