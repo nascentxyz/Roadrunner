@@ -32,9 +32,9 @@ const QueryList = () => {
         />
       </div>
       {apis
-        .filter((str) => str.includes(filter))
+        .filter((str) => str.toLowerCase().includes(filter))
         .map((api) => (
-          <a key={api} href={`/api/${api.toLowerCase()}`} className={card}>
+          <a key={api} href={`/subgraph/${api.toLowerCase()}`} className={card}>
             <h3>{api}</h3>
             <p>{api} markets data.</p>
           </a>
