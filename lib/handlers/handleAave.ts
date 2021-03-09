@@ -1,37 +1,94 @@
 import axios from "axios";
 
 const handleAave = async () => {
-  const data = await axios.post(
-    "https://api.thegraph.com/subgraphs/name/graphprotocol/compound-v2",
+  const reserves = await axios.post(
+    "https://api.thegraph.com/subgraphs/name/aave/protocol",
     {
       query: `
-            {
-                markets(first: 100) {
-                    borrowRate
-                    cash
-                    collateralFactor
-                    exchangeRate
-                    interestRateModelAddress
-                    name
-                    reserves
-                    supplyRate
-                    symbol
-                    id
-                    totalBorrows
-                    totalSupply
-                    underlyingAddress
-                    underlyingName
-                    underlyingPrice
-                    underlyingSymbol
-                    reserveFactor
-                    underlyingPriceUSD
-                }
-            }
-        `,
+                    {
+                        reserves (where: {
+                            usageAsCollateralEnabled: true
+                        }) {
+                            id
+                            name
+                            price {
+                                id
+                            }
+                            liquidityRate
+                            variableBorrowRate
+                            stableBorrowRate
+                        }
+                    }
+            `,
     }
   );
 
-  return data.data;
+  var result = [];
+  reserves.data.reserves.forEach(async (reserve) => {
+    let data = await axios.post(
+      "https://api.thegraph.com/subgraphs/name/aave/protocol",
+      {
+        query: `
+                        {
+                            reserve(id: "${reserve.id}") {
+                                symbol
+                                name
+                                usageAsCollateralEnabled
+                                isActive
+                                reserveInterestRateStrategy
+                                optimalUtilisationRate
+                                variableRateSlope1
+                                variableRateSlope2
+                                stableRateSlope1
+                                stableRateSlope2
+                                baseVariableBorrowRate
+                                baseLTVasCollateral
+                                baseVariableBorrowRate
+                                reserveLiquidationThreshold
+                                reserveLiquidationBonus
+                                utilizationRate
+                                totalLiquidity
+                                totalLiquidityAsCollateral
+                                availableLiquidity
+                                totalBorrows
+                                totalBorrowsStable
+                                totalBorrowsVariable
+                                liquidityRate
+                                variableBorrowRate
+                                stableBorrowRate
+                                averageStableBorrowRate
+                                liquidityIndex
+                                variableBorrowIndex
+                                lastUpdateTimestamp
+                                lifetimeLiquidity
+                                lifetimeBorrows
+                                lifetimeBorrowsStable
+                                lifetimeBorrowsVariable
+                                price {
+                                id
+                                oracle {
+                                    id
+                                    usdPriceEth
+                                    usdPriceEthMainSource
+                                    lastUpdateTimestamp
+                                }
+                                priceInEth
+                                priceSource
+                                isFallbackRequired
+                                lastUpdateTimestamp
+                                }
+                                aToken {
+                                id
+                                }
+                            }
+                        }
+                `,
+      }
+    );
+    result.push(data.data.reserve);
+  });
+
+  return result;
 };
 
 export default handleAave;

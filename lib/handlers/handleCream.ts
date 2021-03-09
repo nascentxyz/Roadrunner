@@ -2,16 +2,15 @@ import axios from "axios";
 
 const handleCream = async () => {
   const data = await axios.post(
-    "https://api.thegraph.com/subgraphs/name/graphprotocol/compound-v2",
+    "https://api.thegraph.com/subgraphs/name/creamfinancedev/cream-lending-v2",
     {
       query: `
             {
-                markets(first: 100) {
+                markets(first: 1000) {
                     borrowRate
                     cash
                     collateralFactor
                     exchangeRate
-                    interestRateModelAddress
                     name
                     reserves
                     supplyRate
@@ -19,12 +18,16 @@ const handleCream = async () => {
                     id
                     totalBorrows
                     totalSupply
-                    underlyingAddress
                     underlyingName
                     underlyingPrice
                     underlyingSymbol
+                    underlyingAddress
+                    accrualBlockNumber
+                    blockTimestamp
+                    borrowIndex
                     reserveFactor
                     underlyingPriceUSD
+                    underlyingDecimals
                 }
             }
         `,
