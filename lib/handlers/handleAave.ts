@@ -24,7 +24,8 @@ const handleAave = async () => {
   );
 
   var result = [];
-  reserves.data.reserves.forEach(async (reserve) => {
+  for (let index = 0; index < reserves.data.data.reserves.length; index++) {
+    let reserve = reserves.data.data.reserves[index];
     let data = await axios.post(
       "https://api.thegraph.com/subgraphs/name/aave/protocol",
       {
@@ -85,10 +86,11 @@ const handleAave = async () => {
                 `,
       }
     );
-    result.push(data.data.reserve);
-  });
 
-  return result;
+    result.push(data.data.data.reserve);
+  }
+
+  return { data: result };
 };
 
 export default handleAave;
