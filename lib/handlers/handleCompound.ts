@@ -31,7 +31,7 @@ const handleCompound = async () => {
     }
   );
 
-  return data.data;
+  return { data: data.data.data.markets };
 };
 
 export default handleCompound;

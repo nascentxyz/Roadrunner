@@ -103,7 +103,7 @@ const Subgraph = (req) => {
               {!data ? (
                 <h1 className={title}>Loading...</h1>
               ) : (
-                data.data.markets
+                data.data
                   .filter((market) =>
                     market.name.toLowerCase().includes(filter)
                   )
