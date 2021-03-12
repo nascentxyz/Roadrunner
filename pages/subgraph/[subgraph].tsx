@@ -101,7 +101,12 @@ const Subgraph = (req) => {
                 />
               </div>
               {!data ? (
-                <h1 className={title}>Loading...</h1>
+                <h1
+                  className={title}
+                  style={{ width: "100%", margin: "auto", paddingTop: "4em" }}
+                >
+                  Loading...
+                </h1>
               ) : (
                 data.data
                   .filter((market) =>
@@ -116,12 +121,18 @@ const Subgraph = (req) => {
                       <BreakP>Borrow rate: {market.borrowRate}</BreakP>
                       <BreakP>Supply rate: {market.supplyRate}</BreakP>
                       <BreakP>
-                        Collateral rate: {market.collateralFactor}
+                        Collateral Factor: {market.collateralFactor}
                       </BreakP>
-                      <BreakP>Reserve Factor: {market.reserveFactor}</BreakP>
+                      <BreakP>Reserve Rate: {market.reserveFactor}</BreakP>
                       <BreakP>Total Borrow: {market.totalBorrow}</BreakP>
                       <BreakP>Total Suppy: {market.totalSupply}</BreakP>
-                      <BreakP>id: {market.id}</BreakP>
+                      {market.id === undefined ||
+                      market.id === null ||
+                      market.id === "" ? (
+                        ""
+                      ) : (
+                        <BreakP>id: {market.id}</BreakP>
+                      )}
                     </div>
                   ))
               )}

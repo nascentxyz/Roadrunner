@@ -2,40 +2,75 @@ import axios from "axios";
 
 const handleMaker = async () => {
   const data = await axios.post(
-    "https://api.thegraph.com/subgraphs/name/graphitetools/maker",
+    "https://api.thegraph.com/subgraphs/name/protofire/maker-protocol",
     {
       query: `
                 {
-                    makers(first: 1000) {
-                        id
-                        index
-                        rate
-                        collaterals {
-                        id
+                    collateralTypes(orderBy: addedAt) {
+                        name: id
+                        price {
+                        value
+                        block
                         }
-                    }
-                    collaterals(first: 1000) {
-                        id
-                        index
                         rate
-                        supply
+                        debtCeiling
+                        totalDebt
+                        totalCollateral
+                        liquidationLotSize
+                        liquidationPenalty
+                        liquidationRatio
+                        stabilityFee
+                        auctionCount
+                        vaultCount
                     }
-                }
+                    }
             `,
     }
   );
 
   var new_data = [];
-  data.data.data.collaterals.forEach((collateral) => {
+  data.data.data.collateralTypes.forEach((collateral) => {
     new_data.push({
-      name: collateral.id,
-      index: collateral.index,
-      rate: collateral.rate,
-      supply: collateral.supply,
+      name: collateral.name,
+      borrowRate: collateral.rate,
+      supplyRate: 0,
+      reserveFactor: collateral.stabilityFee,
+      collateralFactor: collateral.liquidationRatio,
+      totalBorrow: collateral.totalDebt,
+      totalSupply: collateral.totalCollateral,
     });
   });
 
-  return { data: new_data, makers: data.data.data.makers };
+  return { data: new_data };
 };
 
 export default handleMaker;
+
+/*
+{
+  vaults(where: {cdpId_not: null}, orderBy: cdpId) {
+    collateralType {
+      name: id
+      price {
+        value
+        block
+      }
+      debtCeiling
+      totalDebt
+      totalCollateral
+      liquidationLotSize
+      liquidationPenalty
+      liquidationRatio
+      stabilityFee
+      auctionCount
+      vaultCount
+    }
+    collateral
+    debt
+    owner {
+      id
+    }
+  }
+}
+
+*/

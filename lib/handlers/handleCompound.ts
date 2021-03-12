@@ -31,7 +31,20 @@ const handleCompound = async () => {
     }
   );
 
-  return { data: data.data.data.markets };
+  var result = [];
+  for (let index = 0; index < data.data.data.markets.length; index++) {
+    result.push({
+      totalBorrow: data.data.data.markets[index].totalBorrows,
+      ...data.data.data.markets[index],
+      name:
+        data.data.data.markets[index].name +
+        " (" +
+        data.data.data.markets[index].underlyingSymbol +
+        ")",
+    });
+  }
+
+  return { data: result };
 };
 
 export default handleCompound;
