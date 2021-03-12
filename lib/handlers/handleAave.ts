@@ -87,7 +87,21 @@ const handleAave = async () => {
       }
     );
 
-    result.push(data.data.data.reserve);
+    result.push({
+      borrowRate: data.data.data.reserve.stableBorrowRate,
+      supplyRate: data.data.data.reserve.liquidityRate,
+      reserveFactor: data.data.data.reserve.reserveLiquidationThreshold,
+      collateralFactor: data.data.data.reserve.baseLTVasCollateral,
+      totalBorrow: data.data.data.reserve.totalBorrows,
+      totalSupply: data.data.data.reserve.totalLiquidity,
+      id: data.data.data.reserve.aToken.id,
+      ...data.data.data.reserve,
+      name:
+        data.data.data.reserve.name +
+        " (" +
+        data.data.data.reserve.symbol +
+        ")",
+    });
   }
 
   return { data: result };
