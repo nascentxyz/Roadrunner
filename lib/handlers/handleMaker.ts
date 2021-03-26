@@ -32,10 +32,14 @@ const handleMaker = async () => {
   data.data.data.collateralTypes.forEach((collateral) => {
     new_data.push({
       name: collateral.name,
-      borrowRate: collateral.rate,
-      supplyRate: 0,
-      reserveFactor: collateral.stabilityFee,
-      collateralFactor: collateral.liquidationRatio,
+      borrowRate: parseFloat(
+        (Math.pow(collateral.stabilityFee, 31540000) - 1) * 100 + ""
+      ).toFixed(2),
+      supplyRate: "-", // 0,
+      reserveFactor: "-", // collateral.stabilityFee,
+      collateralFactor: parseFloat(
+        1 / collateral.liquidationRatio + ""
+      ).toFixed(2),
       totalBorrow: collateral.totalDebt,
       totalSupply: collateral.totalCollateral,
     });

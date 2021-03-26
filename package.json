@@ -1,5 +1,5 @@
 {
-  "name": "roadrunner",
+  "name": "Roadrunner",
   "version": "0.1.0",
   "author": "Andreas Bigger <abigger@nascent.xyz>",
   "description": "A rate analysis library built as a serverless Next.js application to easily query the Graph",
