@@ -118,20 +118,30 @@ const Subgraph = (req) => {
                       className={subgraphCard}
                     >
                       <h3>{market.name}</h3>
-                      <BreakP>Borrow rate: {market.borrowRate}</BreakP>
-                      <BreakP>Supply rate: {market.supplyRate}</BreakP>
+                      <BreakP>Borrow rate: {market.borrowRate}%</BreakP>
+                      <BreakP>Supply rate: {market.supplyRate}%</BreakP>
                       <BreakP>
-                        Collateral Factor: {market.collateralFactor}
+                        Collateral Factor: {market.collateralFactor}%
                       </BreakP>
-                      <BreakP>Reserve Rate: {market.reserveFactor}</BreakP>
-                      <BreakP>Total Borrow: {market.totalBorrow}</BreakP>
-                      <BreakP>Total Suppy: {market.totalSupply}</BreakP>
+                      <BreakP>Reserve Rate: {market.reserveFactor}%</BreakP>
+                      <BreakP>
+                        Total Borrow:{" "}
+                        {parseFloat(market.totalBorrow).toFixed(4)}
+                      </BreakP>
+                      <BreakP>
+                        Total Suppy: {parseFloat(market.totalSupply).toFixed(4)}
+                      </BreakP>
                       {market.id === undefined ||
                       market.id === null ||
                       market.id === "" ? (
                         ""
                       ) : (
-                        <BreakP>id: {market.id}</BreakP>
+                        <BreakP>
+                          id:{" "}
+                          <a href={`https://etherscan.io/address/${market.id}`}>
+                            {market.id}
+                          </a>
+                        </BreakP>
                       )}
                     </div>
                   ))
