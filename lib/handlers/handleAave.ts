@@ -88,8 +88,12 @@ const handleAave = async () => {
     );
 
     result.push({
-      borrowRate: data.data.data.reserve.stableBorrowRate,
-      supplyRate: data.data.data.reserve.liquidityRate,
+      borrowRate: parseFloat(
+        data.data.data.reserve.stableBorrowRate * 100 + ""
+      ).toFixed(2),
+      supplyRate: parseFloat(
+        data.data.data.reserve.liquidityRate * 100 + ""
+      ).toFixed(2),
       reserveFactor: data.data.data.reserve.reserveLiquidationThreshold,
       collateralFactor: data.data.data.reserve.baseLTVasCollateral,
       totalBorrow: data.data.data.reserve.totalBorrows,

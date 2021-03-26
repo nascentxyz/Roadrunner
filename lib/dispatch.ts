@@ -3,6 +3,7 @@ import {
   handleCompound,
   handleCream,
   handleMaker,
+  handleDydx,
 } from "./handlers";
 
 // * Handles various subgraphs
@@ -20,6 +21,9 @@ const dispatch = async (subgraph) => {
       break;
     case "cream":
       data = await handleCream();
+      break;
+    case "dydx":
+      data = await handleDydx();
       break;
     default:
       break;

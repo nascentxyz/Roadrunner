@@ -39,6 +39,14 @@ const handleCream = async () => {
     result.push({
       totalBorrow: data.data.data.markets[index].totalBorrows,
       ...data.data.data.markets[index],
+      reserveFactor:
+        data.data.data.markets[index].reserveFactor / 10000000000000000, // * This sucks...
+      borrowRate: parseFloat(
+        data.data.data.markets[index].borrowRate * 100 + ""
+      ).toFixed(2),
+      supplyRate: parseFloat(
+        data.data.data.markets[index].supplyRate * 100 + ""
+      ).toFixed(2),
       name:
         data.data.data.markets[index].name +
         " (" +
